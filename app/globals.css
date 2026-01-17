@@ -7,3 +7,11 @@
 .hide-scroll::-webkit-scrollbar {
   display: none;
 }
+.green-gradient {
+  background: linear-gradient(
+    to right,
+    rgb(0, 44, 0),
+    rgb(2, 137, 2),
+    rgb(145, 244, 145)
+  );
+}

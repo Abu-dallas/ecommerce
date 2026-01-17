@@ -57,7 +57,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="w-full">
+      <div className="w-full lg:pr-26">
         <div className="flex items-center lg:justify-center gap-14">
           <div>
             <p className="text-md font-semibold text-slate-800 mb-4">

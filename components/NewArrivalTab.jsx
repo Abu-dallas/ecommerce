@@ -60,7 +60,7 @@ function NewArrivalTab() {
       </div>
       <div className="w-full flex items-center justify-center py-6">
         <Link
-          href="#"
+          href="/products"
           className="underline underline-offset-8 decoration-2 hover:text-red-500 transition-colors duration-300 text-slate-800 font-semibold"
         >
           View All Products

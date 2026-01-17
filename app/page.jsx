@@ -5,7 +5,6 @@ import HomeProduct from "@/components/HomeProducts";
 import CustomersReview from "@/components/CustomersReview";
 import NewsInsight from "@/components/NewsInsight";
 import ShopInstagram from "@/components/ShopInstagram";
-import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -165,7 +164,6 @@ export default function Home() {
         <CustomersReview />
         <NewsInsight />
         <ShopInstagram />
-        <Footer />
       </div>
     </div>
   );

@@ -1,16 +1,32 @@
 "use client";
 import { Heart, Menu, Search, ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
+import Cart from "@/components/Cart";
+import { useState } from "react";
 
 function NavBar({ isOpen, setIsOpen }) {
+  const [isClosed, setIsclosed] = useState(false);
   return (
     <div>
-      <div className="py-3 md:py-4 px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm">
+      <div className="py-3 md:py-4 px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm relative">
+        <div
+          className={`transition-all duration-300 ${
+            isClosed
+              ? "w-full z-50 h-screen fixed bg-black/15 top-0 right-0"
+              : "w-full z-50 h-screen fixed bg-black/15 top-0 right-0 max-md:translate-x-full lg:hidden"
+          }`}
+        >
+          <div className="w-full h-full relative">
+            <div className="w-[90%] lg:w-[50%] bg-white absolute top-0 right-0">
+              <Cart setIsclosed={setIsclosed} />
+            </div>
+          </div>
+        </div>
         <Menu
           onClick={() => setIsOpen(true)}
           className="text-slate-800 size-6 lg:hidden"
         />
-        <p className="text-3xl font-bold text-slate-800">Modeve</p>
+        <p className="text-3xl font-bold text-slate-800">Blogger</p>
         <div className="hidden lg:flex items-center justify-center gap-4 text-slate-800">
           {DesktopNavs.map((link, index) => (
             <Link
@@ -27,7 +43,7 @@ function NavBar({ isOpen, setIsOpen }) {
           <Search className="text-slate-800 size-5" />
           <User className="text-slate-800 size-5 hidden md:block" />
           <Heart className="text-slate-800 size-5 hidden md:block" />
-          <div className="relative">
+          <div onClick={() => setIsclosed(true)} className="relative">
             <span className="bg-red-500  px-1 flex items-center justify-center text-xs rounded-full text-white absolute bottom-2 -right-2">
               2
             </span>
