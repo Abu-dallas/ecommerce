@@ -1,3 +1,4 @@
+"use client";
 import { Allproducts } from "@/utils/products";
 import {
   CheckCircle,
@@ -13,12 +14,24 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import FilterSideBar from "../../components/FilterSideBar";
+import { useState } from "react";
+import Link from "next/link";
 
 function Products() {
+  const [isFilterOpen, setisFilterOpen] = useState(false);
   return (
     <div className="w-full">
-      <div className="fixed top-0 w-full h-screen bg-black/25 z-50">
-        <FilterSideBar />
+      <div
+        className={`transition-all duration-150 ${
+          isFilterOpen
+            ? "fixed top-0 w-full h-screen bg-black/15 z-50"
+            : "hidden md:block fixed top-0 w-full h-screen bg-black/15 z-50 md:-translate-x-full"
+        }`}
+      >
+        <FilterSideBar
+          isFilterOpen={isFilterOpen}
+          setisFilterOpen={setisFilterOpen}
+        />
       </div>
       <div className="w-full bg-gray-100 flex items-center justify-center h-[150px] md:h-[200px]">
         <div>
@@ -32,7 +45,10 @@ function Products() {
       </div>
       <div className="w-full flex items-center justify-between mt-12 px-4 md:px-6">
         <div className="flex items-center gap-3">
-          <button className="flex items-center p-1.5 border border-slate-200 gap-2 rounded-lg">
+          <button
+            className="flex items-center p-1.5 border border-slate-200 gap-2 rounded-lg"
+            onClick={() => setisFilterOpen(true)}
+          >
             <Filter className="text-slate-800 size-4" />
             <span>Filters</span>
           </button>
@@ -57,7 +73,7 @@ function Products() {
       </div>
       <div className="w-full py-6 px-4">
         <p className=" text-slate-600 text-sm">
-          <span className="text-slate-900">16</span> products found
+          <span className="text-black">16</span> products found
         </p>
         <div className="w-full lg:px-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-6 items-start">
           {Allproducts.map((item) => (
@@ -72,9 +88,12 @@ function Products() {
                   </span>
                 )}
                 <div className="flex flex-col gap-0.5 justify-center ml-auto">
-                  <span className="p-1 rounded-full bg-slate-50">
+                  <Link
+                    href={`/products/${item.id}`}
+                    className="p-1 rounded-full bg-slate-50"
+                  >
                     <Eye className="size-5 text-black" strokeWidth={1} />
-                  </span>
+                  </Link>
                   <span className="p-1 rounded-full bg-slate-50">
                     <Heart className="size-5 text-black" strokeWidth={1} />
                   </span>
