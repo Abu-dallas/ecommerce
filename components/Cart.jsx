@@ -8,7 +8,7 @@ function Cart({ setIsclosed }) {
   const [isItem, setisItem] = useState("");
   const [tab, settab] = useState("");
   return (
-    <div className="w-full sm:h-screen flex flex-col sm:flex-row bg-white overflow-y-auto">
+    <div className="w-full sm:h-[100vh] flex flex-col sm:flex-row bg-white overflow-y-auto pb-7">
       <div className="py-2 sm:overflow-y-scroll w-full sm:w-[35%] lg:h-full  border-r border-r-slate-200 hide-scroll">
         <div className="flex w-full items-center justify-between">
           <p className="text-slate-800 font-semibold text-lg sm:text-center px-4 py-2">
@@ -26,7 +26,7 @@ function Cart({ setIsclosed }) {
             <div
               key={index}
               onMouseEnter={() => {
-                setisItem(item.title), setisHover(true);
+                (setisItem(item.title), setisHover(true));
               }}
               onMouseLeave={() => setisHover(false)}
               className="w-[105px] lg:w-[165px]"
@@ -208,7 +208,7 @@ function Cart({ setIsclosed }) {
           </p>
         </div>
         <hr className="h-2 text-slate-200 w-full mt-2" />
-        <div className="w-full flex flex-col items-center justify-center gap-3 mt-4 h-[170px] overflow-y-scroll py-4 pt-20">
+        <div className="w-full flex flex-col items-center justify-center gap-3 mt-4 h-[170px] overflow-y-scroll py-4 pt-53">
           {CartItems.map((item, index) => (
             <div
               key={index}

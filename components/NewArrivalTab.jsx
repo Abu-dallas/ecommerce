@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { newArrivals } from "../utils/products";
+import { Allproducts } from "../utils/products";
 import Link from "next/link";
 import { Eye } from "lucide-react";
 
@@ -7,7 +7,7 @@ function NewArrivalTab() {
   return (
     <div className="w-full">
       <div className="w-full lg:px-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-6 items-start">
-        {newArrivals.map((item) => (
+        {Allproducts.slice(0, 8).map((item) => (
           <div
             key={item.id}
             className="flex w-full flex-col justify-center mt-2 lg:mt-6 relative group "
@@ -18,9 +18,12 @@ function NewArrivalTab() {
                   {item.discountPercent}
                 </span>
               )}
-              <span className="p-1 rounded-full bg-slate-50 ml-auto">
+              <Link
+                href={`/products/${item.id}`}
+                className="p-1 rounded-full bg-slate-50 ml-auto"
+              >
                 <Eye className="size-5 text-black" strokeWidth={1} />
-              </span>
+              </Link>
             </div>
             <div className="w-full absolute bottom-15 px-2 z-40">
               <button

@@ -19,6 +19,8 @@ import Link from "next/link";
 
 function Products() {
   const [isFilterOpen, setisFilterOpen] = useState(false);
+  const [IsLayout, setIsLayout] = useState("View2");
+
   return (
     <div className="w-full">
       <div
@@ -37,7 +39,9 @@ function Products() {
         <div>
           <p className="text-3xl md:text-4xl text-slate-800 font-bold">Women</p>
           <p className="flex gap-2 items-center mt-2">
-            <span className="text-slate-800 text-sm">Homepage</span>
+            <Link href="/" className="text-slate-800 text-sm">
+              Homepage
+            </Link>
             <ChevronRight className="text-slate-400 size-4" />
             <span className="text-slate-400 text-sm">Women</span>
           </p>
@@ -58,8 +62,14 @@ function Products() {
           </button>
         </div>
         <div className="flex items-center gap-2">
-          <LayoutList className="text-slate-800 size-5" />
-          <Grid2X2Icon className="text-slate-800 size-5" />
+          <LayoutList
+            onClick={() => setIsLayout("View1")}
+            className="text-slate-800 size-5"
+          />
+          <Grid2X2Icon
+            onClick={() => setIsLayout("View2")}
+            className="text-slate-800 size-5"
+          />
           <Grip className="text-slate-800 size-5 hidden md:flex" />
         </div>
         <div className="flex items-center gap-2">
@@ -75,7 +85,9 @@ function Products() {
         <p className=" text-slate-600 text-sm">
           <span className="text-black">16</span> products found
         </p>
-        <div className="w-full lg:px-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-6 items-start">
+        <div
+          className={`${IsLayout === "View1" ? "w-full lg:px-4 grid grid-cols-1  gap-3 lg:gap-6 items-start" : "w-full lg:px-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-6 items-start"}`}
+        >
           {Allproducts.map((item) => (
             <div
               key={item.id}
@@ -107,7 +119,9 @@ function Products() {
                   ADD TO CART
                 </button>
               </div>
-              <div className="w-full h-[220px] md:h-70 overflow-hidden">
+              <div
+                className={`${IsLayout === "View1" ? "w-full h-[400px] md:h-70 overflow-hidden" : "w-full h-[220px] md:h-70 overflow-hidden"}`}
+              >
                 <Image
                   src={item.image[0]}
                   alt={`${item.title + "image"}`}
