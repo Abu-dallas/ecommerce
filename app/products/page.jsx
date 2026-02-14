@@ -16,11 +16,24 @@ import Image from "next/image";
 import FilterSideBar from "../../components/FilterSideBar";
 import { useState } from "react";
 import Link from "next/link";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../../redux/slice";
 
 function Products() {
   const [isFilterOpen, setisFilterOpen] = useState(false);
   const [IsLayout, setIsLayout] = useState("View2");
 
+  const CartItems = useSelector((state) => state.cart.cartItems);
+  const TotalPrice = useSelector((state) => state.cart.totalPrice);
+  const dispatch = useDispatch();
+
+  const [currentPage, setcurrentPage] = useState(1);
+
+  const itemsPerPage = 10;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentProducts = Allproducts.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(Allproducts.length / itemsPerPage);
   return (
     <div className="w-full">
       <div
@@ -56,7 +69,7 @@ function Products() {
             <Filter className="text-slate-800 size-4" />
             <span>Filters</span>
           </button>
-          <button className="hidden md:flex items-center p-1.5  gap-2 text-sm">
+          <button className="hidden md:flex items-center p-1.5 gap-2 text-sm">
             <CheckCircle className="text-slate-800 size-4" />
             <span>Shop sale items only</span>
           </button>
@@ -83,12 +96,13 @@ function Products() {
       </div>
       <div className="w-full py-6 px-4">
         <p className=" text-slate-600 text-sm">
-          <span className="text-black">16</span> products found
+          <span className="text-black">{Allproducts.length}</span> products
+          found
         </p>
         <div
           className={`${IsLayout === "View1" ? "w-full lg:px-4 grid grid-cols-1  gap-3 lg:gap-6 items-start" : "w-full lg:px-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-6 items-start"}`}
         >
-          {Allproducts.map((item) => (
+          {currentProducts.map((item) => (
             <div
               key={item.id}
               className="flex w-full flex-col justify-center mt-2 lg:mt-6 relative group "
@@ -113,6 +127,7 @@ function Products() {
               </div>
               <div className="w-full absolute bottom-14 px-2 z-40">
                 <button
+                  onClick={() => dispatch(addToCart(item))}
                   className="w-full p-1.5 rounded-full text-xs font-semibold text-slate-800 bg-white hover:bg-black hover:text-white transition-all duration-300"
                   type="button"
                 >
@@ -151,22 +166,29 @@ function Products() {
         </div>
         <div className="w-full flex items-center justify-center pt-8 pb-12 ">
           <div className="flex items-center gap-2 text-slate-800 text-sm">
-            <button className="rounded-lg p-2 border border-slate-200 hover:bg-black hover:border-black hover:text-white size-8 flex items-center justify-center">
+            <button
+              disabled={currentPage === 1}
+              onClick={() => setcurrentPage((prev) => prev - 1)}
+              className="rounded-lg p-2 border border-slate-200 size-8 flex items-center justify-center"
+            >
               <ChevronLeft className="size-4" />
             </button>
-            <button className="rounded-lg p-2 border border-slate-200 hover:bg-black hover:border-black hover:text-white size-8 flex items-center justify-center">
-              1
-            </button>
-            <button className="rounded-lg p-2 border border-slate-200 hover:bg-black hover:border-black hover:text-white size-8 flex items-center justify-center">
-              2
-            </button>
-            <button className="rounded-lg p-2 border border-slate-200 hover:bg-black hover:border-black hover:text-white size-8 flex items-center justify-center">
-              3
-            </button>
-            <button className="rounded-lg p-2 border border-slate-200 hover:bg-black hover:border-black hover:text-white size-8 flex items-center justify-center">
-              4
-            </button>
-            <button className="rounded-lg p-2 border border-slate-200 hover:bg-black hover:border-black hover:text-white size-8 flex items-center justify-center">
+
+            <div className="w-full flex items-center justify-center gap-3">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  onClick={() => setcurrentPage(index + 1)}
+                  key={index}
+                  className={` transition-all duration-300 ease-in-out ${currentPage === index + 1 ? "rounded-lg p-2 border border-slate-200 bg-black border-black text-white size-8 flex items-center justify-center" : "rounded-lg p-2 border border-slate-200 size-8 flex items-center justify-center"}`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => setcurrentPage((prev) => prev + 1)}
+              className="rounded-lg p-2 border border-slate-200 size-8 flex items-center justify-center"
+            >
               <ChevronRight className="size-4" />
             </button>
           </div>

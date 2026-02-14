@@ -3,11 +3,13 @@ import { Heart, Menu, Search, ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
 import Cart from "@/components/Cart";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function NavBar({ isOpen, setIsOpen }) {
   const [isClosed, setIsclosed] = useState(false);
+  const CartItems = useSelector((state) => state.cart.cartItems);
   return (
-    <div>
+    <div className="fixed top-0 w-full z-50 bg-white">
       <div className="py-3 md:py-4 px-4 md:px-6 flex items-center justify-between border-b border-slate-100 shadow-sm relative">
         <div
           className={`transition-all duration-300 ${
@@ -45,7 +47,7 @@ function NavBar({ isOpen, setIsOpen }) {
           <Heart className="text-slate-800 size-5 hidden md:block" />
           <div onClick={() => setIsclosed(true)} className="relative">
             <span className="bg-red-500  px-1 flex items-center justify-center text-xs rounded-full text-white absolute bottom-2 -right-2">
-              2
+              {CartItems.length}
             </span>
             <ShoppingCart className="text-slate-800 size-5" />
           </div>
@@ -63,8 +65,8 @@ const DesktopNavs = [
     href: "/",
   },
   {
-    title: "Shops",
-    href: "/shops",
+    title: "Categories",
+    href: "/categories",
   },
   {
     title: "Products",

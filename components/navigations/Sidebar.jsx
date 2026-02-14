@@ -40,7 +40,12 @@ function Sidebar({ isOpen, setIsOpen }) {
 
           <div className="w-full flex flex-col text-slate-900 divide-y divide-slate-200 text-lg font-semibold p-4">
             {MobileNavs.map((link, index) => (
-              <Link key={index} href={link.href} className="py-3">
+              <Link
+                onClick={() => setIsOpen(false)}
+                key={index}
+                href={link.href}
+                className="py-3"
+              >
                 {link.title}
               </Link>
             ))}
@@ -105,8 +110,8 @@ const MobileNavs = [
     href: "/",
   },
   {
-    title: "Shops",
-    href: "/shops",
+    title: "Categories",
+    href: "/categories",
   },
   {
     title: "Products",

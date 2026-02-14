@@ -2,13 +2,20 @@
 import { NotebookPen, PenTool, Van, X } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { removeFromCart } from "@/redux/slice";
 
 function Cart({ setIsclosed }) {
   const [isHover, setisHover] = useState(false);
   const [isItem, setisItem] = useState("");
   const [tab, settab] = useState("");
+
+  const CartItems = useSelector((state) => state.cart.cartItems);
+  const TotalPrice = useSelector((state) => state.cart.totalPrice);
+
+  const dispatch = useDispatch();
   return (
-    <div className="w-full sm:h-[100vh] flex flex-col sm:flex-row bg-white overflow-y-auto pb-7">
+    <div className="w-full h-[100vh] flex flex-col sm:flex-row bg-white overflow-y-auto pb-7">
       <div className="py-2 sm:overflow-y-scroll w-full sm:w-[35%] lg:h-full  border-r border-r-slate-200 hide-scroll">
         <div className="flex w-full items-center justify-between">
           <p className="text-slate-800 font-semibold text-lg sm:text-center px-4 py-2">
@@ -21,7 +28,7 @@ function Cart({ setIsclosed }) {
             <X className="size-5 text-slate-800" />
           </button>
         </div>
-        <div className="w-full flex flex-row sm:flex-col sm:items-center gap-3 max-sm:p-3 max-sm:overflow-x-scroll">
+        <div className="w-full hidden md:flex flex-row sm:flex-col sm:items-center gap-3 max-sm:p-3 max-sm:overflow-x-scroll">
           {CartItemsRecommend.map((item, index) => (
             <div
               key={index}
@@ -208,39 +215,46 @@ function Cart({ setIsclosed }) {
           </p>
         </div>
         <hr className="h-2 text-slate-200 w-full mt-2" />
-        <div className="w-full flex flex-col items-center justify-center gap-3 mt-4 h-[170px] overflow-y-scroll py-4 pt-53">
-          {CartItems.map((item, index) => (
-            <div
-              key={index}
-              className="w-full flex items-center justify-center gap-4"
-            >
-              <Image
-                src={item.image}
-                alt={`${item.title + "image"}`}
-                width={2000}
-                height={2000}
-                className="w-[92px] h-[95px] lg:h-[95px] rounded-lg"
-              />
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="pb-4 text-md font-semibold text-slate-800">
-                    {item.title}
-                  </p>
-                  <p className="text-md text-slate-600 font-semibold text-nowrap">
-                    {item.size}/{item.color}
+        <div className="w-full flex flex-col items-center justify-center gap-3 mt-4 h-[350px] overflow-y-scroll py-4">
+          {CartItems.length === 0 ? (
+            <p className="text-slate-800 text-md">Cart Is Empty</p>
+          ) : (
+            CartItems.map((item, index) => (
+              <div
+                key={index}
+                className="w-full flex items-center justify-center gap-4"
+              >
+                <Image
+                  src={item.image[0]}
+                  alt={`${item.title + "image"}`}
+                  width={2000}
+                  height={2000}
+                  className="w-[92px] h-[95px] lg:h-[95px] rounded-lg"
+                />
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="pb-4 text-md font-semibold text-slate-800">
+                      {item.name}
+                    </p>
+                    <p className="text-md text-slate-600 font-semibold text-nowrap">
+                      {item.size}/{item.color}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col justify-center items-center gap-4">
+                  <button
+                    onClick={() => dispatch(removeFromCart(item.id))}
+                    className="pb-4 text-sm font-semibold text-red-500 underline"
+                  >
+                    Remove
+                  </button>
+                  <p className="text-sm text-slate-800 font-semibold text-nowrap">
+                    {item.quantity} X ${item.price}
                   </p>
                 </div>
               </div>
-              <div className="flex flex-col justify-center items-center gap-4">
-                <button className="pb-4 text-sm font-semibold text-red-500 underline">
-                  Delete
-                </button>
-                <p className="text-sm text-slate-800 font-semibold text-nowrap">
-                  {item.quantity} X ${item.price}
-                </p>
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
         <div className="w-full flex flex-center justify-between px-5 md:px-8 py-5 border-b border-slate-200 cursor-pointer">
           <div
@@ -267,7 +281,9 @@ function Cart({ setIsclosed }) {
         </div>
         <div className="flex w-full items-center justify-between">
           <p className="font-semibold text-xl text-slate-800">Subtotal</p>
-          <p className="font-semibold text-xl text-slate-800">$568</p>
+          <p className="font-semibold text-xl text-slate-800">
+            ${TotalPrice.toFixed(2) || 0.0}
+          </p>
         </div>
         <div className="w-full flex items-center gap-2 my-2">
           <input type="checkbox" className="size-4" />
@@ -314,7 +330,8 @@ const CartItemsRecommend = [
   },
 ];
 
-const CartItems = [
+{
+  /*const CartItems = [
   {
     title: "Belt wrap dress",
     image: "/ecom/cls-circle3.jpg",
@@ -348,3 +365,5 @@ const CartItems = [
     quantity: 2,
   },
 ];
+*/
+}

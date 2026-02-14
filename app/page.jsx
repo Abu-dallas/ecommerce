@@ -5,40 +5,12 @@ import HomeProduct from "@/components/HomeProducts";
 import CustomersReview from "@/components/CustomersReview";
 import NewsInsight from "@/components/NewsInsight";
 import ShopInstagram from "@/components/ShopInstagram";
+import HeroImageSlider from "@/components/HeroImageSlider";
 
 export default function Home() {
   return (
     <div className="w-full">
-      <div className="w-full relative">
-        <div className="absolute bottom-14 lg:bottom-22 px-6 lg:px-12">
-          <p className="text-md font-semibold text-white">BIKINI & SWIMSUITS</p>
-          <p className="text-3xl md:text-5xl lg:text-7xl  font-semibold text-white py-3">
-            Flash Sales Madness
-          </p>
-          <button
-            type="submit"
-            className="text-black bg-white hover:bg-red-600 hover:text-white text-sm font-semibold py-3 px-4 rounded-full flex items-center justify-center gap-2"
-          >
-            Explore Collections{" "}
-            <span>
-              <ArrowUpRight className="size-4 " />
-            </span>
-          </button>
-        </div>
-        <div className="w-full flex items-center justify-center gap-2 absolute bottom-4">
-          <span className="p-1 rounded-full border border-white flex items-center justify-center">
-            <span className="rounded-full p-1 bg-white"></span>
-          </span>
-          <span className="rounded-full p-1 bg-white"></span>
-        </div>
-        <Image
-          src="/ecom/slider-women1.jpg"
-          alt="women image"
-          width={2000}
-          height={2000}
-          className="w-full h-96 lg:h-screen object-cover"
-        />
-      </div>
+      <HeroImageSlider />
       <div className="w-full py-6 flex flex-col items-center justify-center gap-2">
         <p className="text-center text-xl font-semibold text-slate-800">
           Categories you might like

@@ -2,8 +2,11 @@ import Image from "next/image";
 import { Allproducts } from "../utils/products";
 import Link from "next/link";
 import { Eye } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/slice";
 
 function NewArrivalTab() {
+  const dispatch = useDispatch();
   return (
     <div className="w-full">
       <div className="w-full lg:px-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-6 items-start">
@@ -27,6 +30,7 @@ function NewArrivalTab() {
             </div>
             <div className="w-full absolute bottom-15 px-2 z-40">
               <button
+                onClick={() => dispatch(addToCart(item))}
                 className="w-full p-1.5 rounded-full text-xs font-semibold text-slate-800 bg-white hover:bg-black hover:text-white transition-all duration-300"
                 type="button"
               >

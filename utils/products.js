@@ -87,7 +87,7 @@ export const Allproducts = [
     name: "V-neck cotton T-shirt",
     price: 59.99,
     image: [
-      "/ecom/women-2.jpg",
+      "/ecom/women-103.jpg",
       "/ecom/women-9.jpg",
       "/ecom/women-20.jpg",
       "/ecom/women-30.jpg",
@@ -103,7 +103,7 @@ export const Allproducts = [
     name: "Polarized sunglasses",
     price: 79.54,
     image: [
-      "/ecom/women-9.jpg",
+      "/ecom/men-20.jpg",
       "/ecom/women-9.jpg",
       "/ecom/women-20.jpg",
       "/ecom/women-30.jpg",
@@ -119,7 +119,7 @@ export const Allproducts = [
     name: "Ramie shirt with pockets",
     price: 82.05,
     image: [
-      "/ecom/women-20.jpg",
+      "/ecom/men-14.jpg",
       "/ecom/women-9.jpg",
       "/ecom/women-20.jpg",
       "/ecom/women-30.jpg",
@@ -151,7 +151,7 @@ export const Allproducts = [
     name: "Ribbed cotton-blend top",
     price: 54.25,
     image: [
-      "/ecom/women-84.jpg",
+      "/ecom/men-12.jpg",
       "/ecom/women-9.jpg",
       "/ecom/women-20.jpg",
       "/ecom/women-30.jpg",

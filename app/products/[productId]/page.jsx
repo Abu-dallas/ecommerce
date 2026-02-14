@@ -20,16 +20,28 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { addToCart } from "../../../redux/slice";
+import { useDispatch } from "react-redux";
 
 function ProductPage() {
   const [Tab, setTab] = useState("Reviews");
   const [CurrentImage, setCurrentImage] = useState(0);
+  const [Quantity, setQuantity] = useState(1);
 
   const { productId } = useParams();
   const filterProduct = Allproducts.find(
     (product) => product.id === Number(productId),
   );
+  const increaseQuantity = () => {
+    setQuantity((prev) => prev + 1);
+  };
+  const decreaseQuantity = () => {
+    if (Quantity > 1) {
+      setQuantity((prev) => prev - 1);
+    }
+  };
 
+  const dispatch = useDispatch();
   return (
     <div className="w-full p-4">
       <div className="py-4 flex items-center gap-2 text-sm text-slate-700">
@@ -125,12 +137,22 @@ function ProductPage() {
           <div className="w-full py-2">
             <p className="text-slate-900 text-md">Quantity</p>
             <div className="flex items-center justify-between text-slate-800 w-38 mt-2 p-2 border-2 border-slate-200 rounded-2xl">
-              <Minus className="size-4" />
-              <span className="text-md font-semibold">1</span>
-              <Plus className="size-4" />
+              <button onClick={decreaseQuantity}>
+                <Minus className="size-4" />
+              </button>
+              <span className="text-md font-semibold">{Quantity}</span>
+              <button onClick={increaseQuantity}>
+                {" "}
+                <Plus className="size-4" />
+              </button>
             </div>
             <div className="w-full flex items-center gap-4 mt-6">
-              <button className="w-full bg-black hover:bg-slate-950 p-2 rounded-full text-white text-md">
+              <button
+                onClick={() =>
+                  dispatch(addToCart({ ...filterProduct, Quantity }))
+                }
+                className="w-full bg-black hover:bg-slate-950 p-2 rounded-full text-white text-md"
+              >
                 Add to Cart
               </button>
               <span className="p-3 rounded-full border border-slate-200 hover:bg-slate-100">
@@ -138,7 +160,7 @@ function ProductPage() {
               </span>
             </div>
             <button className="w-full bg-red-600 hover:bg-red-500 p-2 mt-2 rounded-full text-white text-md">
-              Add to Cart
+              Proceed to payment
             </button>
           </div>
           <div className="w-full">
