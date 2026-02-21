@@ -43,7 +43,9 @@ function NavBar({ isOpen, setIsOpen }) {
 
         <div className="flex items-center justify-center gap-4">
           <Search className="text-slate-800 size-5" />
-          <User className="text-slate-800 size-5 hidden md:block" />
+          <Link href="/authpage/login">
+            <User className="text-slate-800 size-5 hidden md:block" />
+          </Link>
           <Heart className="text-slate-800 size-5 hidden md:block" />
           <div onClick={() => setIsclosed(true)} className="relative">
             <span className="bg-red-500  px-1 flex items-center justify-center text-xs rounded-full text-white absolute bottom-2 -right-2">
@@ -65,15 +67,15 @@ const DesktopNavs = [
     href: "/",
   },
   {
-    title: "Categories",
-    href: "/categories",
-  },
-  {
     title: "Products",
     href: "/products",
   },
   {
     title: "Blog",
     href: "/blog",
+  },
+  {
+    title: "Categories",
+    href: "/categories",
   },
 ];

@@ -55,10 +55,13 @@ function Sidebar({ isOpen, setIsOpen }) {
               <Heart className="size-5" />
               <p className="text-sm">Wishlist</p>
             </div>
-            <div className="flex gap-1 items-center justify-between bg-gray-200 hover:bg-slate-900 transition-all duration-300 hover:text-white p-2 rounded-lg">
+            <Link
+              href="/authpages/login"
+              className="flex gap-1 items-center justify-between bg-gray-200 hover:bg-slate-900 transition-all duration-300 hover:text-white p-2 rounded-lg"
+            >
               <User className="size-5" />
               <p className="text-sm">Login</p>
-            </div>
+            </Link>
           </div>
           <div className="px-4 text-slate-800">
             <p className="text-lg font-semibold py-4">Need Help?</p>
@@ -110,10 +113,6 @@ const MobileNavs = [
     href: "/",
   },
   {
-    title: "Categories",
-    href: "/categories",
-  },
-  {
     title: "Products",
     href: "/products",
   },
@@ -122,7 +121,7 @@ const MobileNavs = [
     href: "/blog",
   },
   {
-    title: "Contact",
-    href: "/contact",
+    title: "Categories",
+    href: "/categories",
   },
 ];

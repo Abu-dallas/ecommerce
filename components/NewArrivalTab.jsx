@@ -46,14 +46,16 @@ function NewArrivalTab() {
                 className="w-full h-full md:h-85 rounded-lg group-hover:scale-110 transition-all duration-800"
               />
             </div>
-            <span className="text-md lg:text-sm font-semibold text-slate-800 truncate">
+            <span className="text-sm lg:text-sm font-semibold text-slate-800 truncate">
               {item.name}
             </span>
             <div className="flex items-center gap-1.5">
-              <span className="text-md lg:text-sm text-gray-400 line-through">
-                {item.oldPrice}
-              </span>
-              <span className="text-lg lg:text-md font-semibold text-slate-600">
+              {item.oldPrice && (
+                <span className="text-sm lg:text-sm text-gray-400 line-through">
+                  {item.oldPrice}
+                </span>
+              )}
+              <span className="text-md lg:text-md font-semibold text-slate-600">
                 ${item.price}
               </span>
             </div>

@@ -43,7 +43,8 @@ export default function Home() {
           ))}
           <div className="shrink-0 w-1 h-42 rounded-full" />
         </div>
-        <div className="w-full flex items-center justify-center gap-2 mt-4">
+        {/*
+         <div className="w-full flex items-center justify-center gap-2 mt-4">
           <span className="p-1 rounded-full border border-black flex items-center justify-center">
             <span className="rounded-full p-1 bg-black"></span>
           </span>
@@ -53,6 +54,8 @@ export default function Home() {
           <span className="rounded-full p-1 border border-black"></span>
           <span className="rounded-full p-1 border border-black"></span>
         </div>
+        */}
+
         <HomeProduct />
         <div className="w-full px-3 lg:px-8 mt-8 flex max-sm:items-center flex-col lg:flex-row justify-center gap-8">
           <div className="w-full group">

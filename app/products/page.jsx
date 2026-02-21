@@ -22,6 +22,7 @@ import { addToCart } from "../../redux/slice";
 function Products() {
   const [isFilterOpen, setisFilterOpen] = useState(false);
   const [IsLayout, setIsLayout] = useState("View2");
+  const [OpenSort, setOpenSort] = useState(false);
 
   const CartItems = useSelector((state) => state.cart.cartItems);
   const TotalPrice = useSelector((state) => state.cart.totalPrice);
@@ -48,15 +49,17 @@ function Products() {
           setisFilterOpen={setisFilterOpen}
         />
       </div>
-      <div className="w-full bg-gray-100 flex items-center justify-center h-[150px] md:h-[200px]">
+      <div className="w-full bg-gray-100 flex items-center justify-center h-[150px] md:h-[200px] mt-12">
         <div>
-          <p className="text-3xl md:text-4xl text-slate-800 font-bold">Women</p>
+          <p className="text-3xl md:text-4xl text-slate-800 font-bold">
+            Products
+          </p>
           <p className="flex gap-2 items-center mt-2">
             <Link href="/" className="text-slate-800 text-sm">
-              Homepage
+              Home
             </Link>
             <ChevronRight className="text-slate-400 size-4" />
-            <span className="text-slate-400 text-sm">Women</span>
+            <span className="text-slate-400 text-sm">Product</span>
           </p>
         </div>
       </div>
@@ -85,10 +88,40 @@ function Products() {
           />
           <Grip className="text-slate-800 size-5 hidden md:flex" />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 relative">
+          <div
+            className={`${OpenSort ? "absolute top-9 right-2 text-slate-800 flex flex-col gap-1 justify-center  p-4 border border-slate-300 bg-white rounded-lg z-40" : "hidden"}`}
+          >
+            <p
+              onClick={() => setOpenSort(false)}
+              className="text-xs text-nowrap"
+            >
+              Newest to Oldest
+            </p>
+            <p
+              onClick={() => setOpenSort(false)}
+              className="text-xs text-nowrap"
+            >
+              Oldest to Newest
+            </p>
+            <p
+              onClick={() => setOpenSort(false)}
+              className="text-xs text-nowrap"
+            >
+              Price {">"} 100
+            </p>
+            <p
+              onClick={() => setOpenSort(false)}
+              className="text-xs text-nowrap"
+            >
+              Price {"<"} 100
+            </p>
+          </div>
           <span className="hidden md:flex">Sort by:</span>
-
-          <button className="flex items-center p-1.5 border border-slate-200 rounded gap-2 text-sm">
+          <button
+            onClick={() => setOpenSort(true)}
+            className="flex items-center p-1.5 border border-slate-200 rounded gap-2 text-sm"
+          >
             <span>Sort by (Default)</span>
             <ChevronDown className="text-slate-800 size-4" />
           </button>
@@ -107,7 +140,7 @@ function Products() {
               key={item.id}
               className="flex w-full flex-col justify-center mt-2 lg:mt-6 relative group "
             >
-              <div className="w-full flex items-center justify-between p-2 absolute top-0.5 z-40">
+              <div className="w-full flex items-center justify-between p-2 absolute top-0.5 z-30">
                 {item.discountPercent && (
                   <span className="py-0.5 px-2 bg-red-400 text-white text-xs rounded-full">
                     {item.discountPercent}
@@ -149,9 +182,12 @@ function Products() {
                 {item.name}
               </span>
               <div className="flex items-center gap-1.5">
-                <span className="text-md lg:text-sm text-gray-400 line-through">
-                  {item.oldPrice}
-                </span>
+                {item.oldPrice && (
+                  <span className="text-md lg:text-sm text-gray-400 line-through">
+                    {item.oldPrice}
+                  </span>
+                )}
+
                 <span className="text-lg lg:text-md font-semibold text-slate-600">
                   ${item.price}
                 </span>
@@ -186,6 +222,7 @@ function Products() {
               ))}
             </div>
             <button
+              disabled={totalPages === currentPage}
               onClick={() => setcurrentPage((prev) => prev + 1)}
               className="rounded-lg p-2 border border-slate-200 size-8 flex items-center justify-center"
             >
